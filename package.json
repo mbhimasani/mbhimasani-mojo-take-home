@@ -1,0 +1,44 @@
+{
+  "name": "mbhimasani-mojo-take-home",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Event tracking and metrics backend service",
+  "main": "dist/app.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write \"src/**/*.{ts,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [],
+  "author": "Meghana Bhimasani",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.7.2",
+    "@types/supertest": "^6.0.2",
+    "eslint": "^9.37.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3",
+    "supertest": "^7.0.0"
+  }
+}

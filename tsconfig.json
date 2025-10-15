@@ -1,0 +1,40 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // ============= File Layout =============
+    "rootDir": "./src",
+    "outDir": "./dist",
+    // ============= Module System =============
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    // ============= Strict Type Checking =============
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedSideEffectImports": true,
+    // ============= Module Detection =============
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,    
+    "moduleDetection": "force",
+    "esModuleInterop": true,
+    // ============= Emit =============
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    // ============= Interop Constraints =============
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    // ============= Performance & Safety =============
+    "skipLibCheck": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    // ============= Additional Checks =============
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
