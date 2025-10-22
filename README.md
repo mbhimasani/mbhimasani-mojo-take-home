@@ -77,7 +77,7 @@ npm test integration       # End-to-end tests
 ## Tech Stack
 
 - **TypeScript**: Provides static typing for improved code quality and developer experience
-- **Node.js**: JavaScript runtime for server-side execution
+- **Node.js**: JavaScript runtime for server-side execution.
 - **Express**: Minimal and flexible web framework for handling HTTP requests
 - **Jest**: Testing framework with built-in mocking and assertions
 - **Supertest**: HTTP assertion library for integration testing
@@ -134,6 +134,11 @@ Rationale: Chose a minimal stack focused on simplicity, correctness, and familia
 
 ## Trade-offs
 
+### Simple Write Implementation For Reference Table Updates
+- **Decision**: No lock management, queues, or async complexicity used for writes or reads. 
+- **Benefits**: Simplicity, low latency, high write throughput, no deadlocks to handle, consistent response times. Last write-wins strategy. Works for current scenario of running the service locally since since we are using a single-threaded synchronous Node.js event loop.
+- **Costs**: Same-timestamp collision, check-then-set race condition, concurrent updates overwrite each other, no async safety, silent overwrites
+
 ### In-Memory Storage vs Persistence
 - **Decision**: All data stored in memory with no persistence layer
 - **Benefits**: Simplicity, low latency, no database setup required
@@ -145,7 +150,7 @@ Rationale: Chose a minimal stack focused on simplicity, correctness, and familia
 - **Costs**: Cannot query events older than 30 minutes, hard limit on lookback window. Arbitrary fixed time.
 
 ### Lazy Enrichment
-- **Decision**: Enrich events at read time rather than write time. Last write-wins strategy
+- **Decision**: Enrich events at read time rather than write time. 
 - **Benefits**: Always uses latest reference data snapshot, no re-enrichment needed on reference table updates
 - **Costs**: Slower GET /metrics response times, redundant enrichment on repeated queries
 
@@ -160,6 +165,7 @@ Rationale: Chose a minimal stack focused on simplicity, correctness, and familia
 - **Costs**: No semantic validation (e.g., malformed UUIDs accepted, no region/plan enum validation)
 
 ## What I Would Do With More Time
+- Add optimistic write-only locking with version numbers to catch same timestamp conflicts, race conditions, and concurrent updates for reference table updates. This would help support scaling for multi-threaded or distributed systems at the cost of code complexity, slightly higher latency, and lower write throughput.
 - Replace hardcoded Plan (free/pro) and Region (us/eu) values with a dynamic solution to support arbitrary metadata values
 - Explore pre-aggregating metrics per bucket to avoid re-scanning events for metric queries 
   - This would require insight into how often reference data will be updated vs how often metric queries will be made.
